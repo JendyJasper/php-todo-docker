@@ -1,34 +1,35 @@
 pipeline {
     agent any
 
-    parameters {
-        string(name: 'version', defaultValue: '1.0', description: 'This is the version number')
-    }
+    environment { 
+        VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
+}
 
     stages {
 
         stage('Docker Build') {
             steps {
-                sh 'sudo docker build -t todo:${version} .'
+                sh 'sudo docker build -t todo:${VERSION} .'
+                sh 'echo "for branch ${env.BRANCH_NAME}"'
             }
         }
 
         stage('Change tagname') {
             steps {
-                sh 'sudo docker tag todo:${version} jendyjasper/todo:${version}'
+                sh 'sudo docker tag todo:${VERSION} jendyjasper/todo:${VERSION}'
             }        
         }
 
         stage ('Push to Docker Hub') {
             steps {
-                sh 'sudo docker push jendyjasper/todo:${version}'
+                sh 'sudo docker push jendyjasper/todo:${VERSION}'
             }
         }
         
         stage ('Delete Image Locally') {
             steps{
-                sh 'sudo docker rmi jendyjasper/todo:${version}'
-            sh 'sudo docker rmi todo:${version}'
+                sh 'sudo docker rmi jendyjasper/todo:${VERSION}'
+            sh 'sudo docker rmi todo:${VERSION}'
             } 
         }
     }
