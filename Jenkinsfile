@@ -11,7 +11,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'echo ${CODE}'
+                sh '${CODE}'
                 sh 'sudo docker build -t todo:${VERSION} .'
                 
             }
