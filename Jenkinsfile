@@ -10,7 +10,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'curl -o /dev/null -s -w '%{http_code}\n' http://50.19.178.214/'
+                sh 'curl -o /dev/null -s -w "%{http_code}\n" http://50.19.178.214/'
                 sh 'sudo docker build -t todo:${VERSION} .'
                 
             }
