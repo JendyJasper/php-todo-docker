@@ -32,7 +32,7 @@ pipeline {
                 //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
                 //push the image to docker hub and if not, print an error message
                 sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214:8001/')
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214:8000/')
                     if [[ $code == "200" ]]; then
                         sudo docker push jendyjasper/todo:${VERSION}
                     else
