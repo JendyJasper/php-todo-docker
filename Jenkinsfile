@@ -23,7 +23,7 @@ pipeline {
 
         stage ('Run Container'){
             steps {
-               sh 'sudo docker run --name todo -d -p8000:80 jendyjasper/todo:${VERSION}'
+               sh 'sudo docker run --name todo-${VERSION} -d -p8000:80 jendyjasper/todo:${VERSION}'
             }
         }
 
