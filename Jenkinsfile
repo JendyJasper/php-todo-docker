@@ -10,15 +10,6 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214/hgh')
-                    if [[ $code == "200" ]]; then
-                        echo "correct"
-                    else
-                        echo "incorrect"
-                        # other actions
-                    fi
-                '''
                 sh 'sudo docker build -t todo:${VERSION} .'
                 
             }
@@ -31,8 +22,17 @@ pipeline {
         }
 
         stage ('Push to Docker Hub') {
+             sh '''#!/bin/bash
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214/hgh')
+                    if [[ $code == "200" ]]; then
+                        sudo docker push jendyjasper/todo:${VERSION}
+                    else
+                        echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub"
+                        # other actions
+                    fi
+                '''
             steps {
-                sh 'sudo docker push jendyjasper/todo:${VERSION}'
+                
             }
         }
         
