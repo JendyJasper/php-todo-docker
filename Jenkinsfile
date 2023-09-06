@@ -61,10 +61,10 @@ pipeline {
             } 
         }
 
-        // stage ('Docker System Prune') {
-        //     ssteps {
-        //         sh 'sudo docker system prune -f'
-        //     }
-        // }
+        stage ('Docker System Prune') {
+            steps {
+                sh 'sudo docker system prune -f'
+            }
+        }
     }
 }
