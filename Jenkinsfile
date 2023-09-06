@@ -9,31 +9,27 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                // sh 'echo ${env.BRANCH_NAME}'
-                // sh 'echo ${env.BUILD_ID}'
-                // sh 'echo ${env.GIT_COMMIT}'
-
-                sh 'sudo docker build -t todo:${VERSION} .'
+                sh 'sudo docker build -t todo:${env.BRANCH_NAME}-${VERSION} .'
                 
             }
         }
 
         stage('Change tagname') {
             steps {
-                sh 'sudo docker tag todo:${VERSION} jendyjasper/todo:${VERSION}'
+                sh 'sudo docker tag todo:${env.BRANCH_NAME}-${VERSION} jendyjasper/todo:${env.BRANCH_NAME}-${VERSION}'
             }        
         }
 
         stage ('Push to Docker Hub') {
             steps {
-                sh 'sudo docker push jendyjasper/todo:${VERSION}'
+                sh 'sudo docker push jendyjasper/todo:${env.BRANCH_NAME}-${VERSION}'
             }
         }
         
         stage ('Delete Image Locally') {
             steps{
-                sh 'sudo docker rmi jendyjasper/todo:${VERSION}'
-            sh 'sudo docker rmi todo:${VERSION}'
+                sh 'sudo docker rmi jendyjasper/todo:${env.BRANCH_NAME}-${VERSION}'
+                sh 'sudo docker rmi todo:${env.BRANCH_NAME}-${VERSION}'
             } 
         }
     }
