@@ -9,7 +9,9 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'echo "for branch ${env.BRANCH_NAME}, ${env.GIT_COMMIT}, ${env.BUILD_ID}"'
+                sh 'echo ${env.BRANCH_NAME}'
+                sh 'echo ${env.BUILD_ID}'
+                sh 'echo ${env.GIT_COMMIT}'
 
                 sh 'sudo docker build -t todo:${VERSION} .'
                 
