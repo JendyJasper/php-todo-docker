@@ -9,7 +9,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t darey-todo:${version} .'
+                sh 'sudo docker build -t darey-todo:${version} .'
             }
         }
 
