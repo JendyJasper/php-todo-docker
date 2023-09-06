@@ -22,7 +22,8 @@ pipeline {
         }
 
         stage ('Push to Docker Hub') {
-             sh '''#!/bin/bash
+            steps {
+                sh '''#!/bin/bash
                     code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214/hgh')
                     if [[ $code == "200" ]]; then
                         sudo docker push jendyjasper/todo:${VERSION}
@@ -31,8 +32,6 @@ pipeline {
                         # other actions
                     fi
                 '''
-            steps {
-                
             }
         }
         
