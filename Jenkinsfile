@@ -4,7 +4,7 @@ pipeline {
     environment { 
         //use the BRANCH_NAME and Build_ID environment variables to tag the image versions
         VERSION = "${env.BRANCH_NAME}-V1.${env.BUILD_ID}"
-        CODE = "curl -o /dev/null -s -w "%{http_code}\n" http://50.19.178.214/"
+        CODE = "curl -o /dev/null -s -w '%{http_code}\n' http://50.19.178.214/"
 }
 
     stages {
