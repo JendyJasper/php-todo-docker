@@ -10,7 +10,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh 'whoami'
-                sh 'sudo docker build -t darey-todo:${version} .'
+                sh 'sudo su'
+                sh 'docker build -t darey-todo:${version} .'
             }
         }
 
