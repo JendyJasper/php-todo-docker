@@ -10,7 +10,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'if [[ curl -o /dev/null -s -w "%{http_code}" http://50.19.178.214/ == 200 ]]; then echo correct .; fi '
+                script {
+                    if (sh 'curl -o /dev/null -s -w "%{http_code}" http://50.19.178.214/' == '200') {
+                        echo 'Hello status code 200'
+                    }  else {
+                        sh "echo wrong status code"
+                    }
+                    }
                 sh 'sudo docker build -t todo:${VERSION} .'
                 
             }
