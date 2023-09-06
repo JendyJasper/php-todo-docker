@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment { 
-        //use the BRANCH_NAME and Build_ID environment var to tag the versions
+        //use the BRANCH_NAME and Build_ID environment variables to tag the versions
         VERSION = "${env.BRANCH_NAME}-V1.${env.BUILD_ID}"
 }
 
