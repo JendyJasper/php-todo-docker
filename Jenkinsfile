@@ -11,7 +11,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214/')
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214/hgh')
                     if [[ $code == "200" ]]; then
                         echo "correct"
                     else
