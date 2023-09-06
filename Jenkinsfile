@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     if ('curl -o /dev/null -s -w "%{http_code}" http://50.19.178.214/' == 200) {
-                        echo "hello 200"
+                       sh 'echo "hello 200"'
                     }
                 }
                 
