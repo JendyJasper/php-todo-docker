@@ -60,5 +60,11 @@ pipeline {
                 sh 'sudo docker rmi -f todo:${VERSION}'
             } 
         }
+
+        stage ('Docker System Prune') {
+            ssteps {
+                sh 'sudo docker system prune -f'
+            }
+        }
     }
 }
