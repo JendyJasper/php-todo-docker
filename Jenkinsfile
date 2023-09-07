@@ -11,6 +11,7 @@ pipeline {
         stage('Docker Compose UP') {
             steps {
                 sh '''#!/bin/bash
+                echo VERSION
                     sudo docker compose -f todo.yaml up -d
                 '''
                 
