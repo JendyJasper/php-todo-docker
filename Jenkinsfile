@@ -10,15 +10,9 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'sudo docker build -t todo:${VERSION} .'
+                sh 'sudo docker build -t jendyjasper/todo:${VERSION} .'
                 
             }
-        }
-
-        stage('Change tagname') {
-            steps {
-                sh 'sudo docker tag todo:${VERSION} jendyjasper/todo:${VERSION}'
-            }        
         }
 
         stage ('Run Container'){ //can use docker-compose too
@@ -57,7 +51,6 @@ pipeline {
         stage ('Delete Image Locally') {
             steps{
                 sh 'sudo docker rmi -f jendyjasper/todo:${VERSION}'
-                sh 'sudo docker rmi -f todo:${VERSION}'
             } 
         }
 
