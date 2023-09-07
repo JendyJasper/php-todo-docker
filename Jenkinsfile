@@ -10,9 +10,7 @@ pipeline {
 
         stage('Docker Compose UP') {
             steps {
-                sh '''#!/bin/bash
-                    sudo docker compose -f todo.yaml up -d
-                '''
+                sh 'sudo docker compose -f todo.yaml up -d'
                 
             }
         }
