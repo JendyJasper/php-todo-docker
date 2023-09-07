@@ -8,15 +8,12 @@ pipeline {
 
     stages {
 
-            stage('Save env') {
+        stage('Save env') {
                 steps {
                     sh 'sudo echo ${VERSION} > .file.env'
                     
                 }
             }
-    }
-
-    stages {
 
         stage('Docker Compose UP') {
             steps {
