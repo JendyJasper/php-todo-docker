@@ -8,6 +8,15 @@ pipeline {
 
     stages {
 
+            stage('Save env') {
+                steps {
+                    sh 'sudo echo ${VERSION} > .file.env'
+                    
+                }
+            }
+
+    stages {
+
         stage('Docker Compose UP') {
             steps {
                 sh 'sudo docker compose -f todo.yaml up -d'
