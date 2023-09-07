@@ -12,6 +12,14 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                     sudo docker compose -f todo.yaml up -d
+                '''
+                
+            }
+        }
+
+        stage('DB Migration') {
+            steps {
+                sh '''#!/bin/bash
                     sudo docker exec -it todo php artisan
                 '''
                 
