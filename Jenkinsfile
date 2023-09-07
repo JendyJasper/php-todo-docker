@@ -8,25 +8,23 @@ pipeline {
 
     stages {
 
-        stage('Docker Build') {
+        stage('Docker Compose') {
             steps {
-                sh 'sudo docker build -t jendyjasper/todo:${VERSION} .'
+                sh '''#!/bin/bash
+                    sudo docker compose -f todo.yaml up -d
+                    sudo docker exec -it todo php artisan
+                '''
                 
             }
         }
 
-        stage ('Run Container'){ //can use docker-compose too
-            steps {
-               sh 'sudo docker run --name todo-${VERSION} -d -p8000:80 jendyjasper/todo:${VERSION}'
-            }
-        }
-
+        //run sudo docker exec -it todo php artisan migrate after successfull run by running it on the shell 
         stage ('Push to Docker Hub') {
             steps {
                 //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
                 //push the image to docker hub and if not, print an error message
                 sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://50.19.178.214:8000/')
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://54.146.33.56:5000/')
                     if [[ $code == "200" ]]; then
                         sudo docker push jendyjasper/todo:${VERSION}
                     else
@@ -39,8 +37,7 @@ pipeline {
         stage ('Stop and Delete Container') { //can use docker-compuse too
             steps {
                 sh '''#!/bin/bash
-                sudo docker stop todo-${VERSION}
-                sudo docker rm -f todo-${VERSION}
+                sudo docker compose -f todo.yaml down
                 '''
             }
         }
