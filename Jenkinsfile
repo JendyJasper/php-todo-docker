@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Docker Compose') {
+        stage('Docker Compose UP') {
             steps {
                 sh '''#!/bin/bash
                     sudo docker compose -f todo.yaml up -d
@@ -42,7 +42,7 @@ pipeline {
             }
         }
         
-        stage ('Stop and Delete Container') { //can use docker-compuse too
+        stage ('Docker Compose Down') { //can use docker-compuse too
             steps {
                 sh '''#!/bin/bash
                 sudo docker compose -f todo.yaml down
