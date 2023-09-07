@@ -14,6 +14,7 @@ pipeline {
                     
                 }
             }
+    }
 
     stages {
 
@@ -67,6 +68,4 @@ pipeline {
         }
 
     }
-}
-
 }
