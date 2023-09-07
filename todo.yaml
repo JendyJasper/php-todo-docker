@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  php_frontend:
+    image: jendyjasper/todo:${VERSION}
+    container_name: todo
+    build: 
+      context: .
+      # tags: 
+      #   - "jendyjasper/todo:1.1" # you can use this section to build images
+      # for multiple repos or registries.
+    ports:
+      - "5000:80"
+    volumes:
+      - php_frontend:/var/www/html
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_DATABASE: tododb
+      MYSQL_USER: jendy
+      MYSQL_PASSWORD: jendyjasper
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  php_frontend:
+  db:

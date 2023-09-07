@@ -24,13 +24,12 @@ WORKDIR /var/www/html
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 #migrate the database
-RUN php artisan migrate
+#RUN php artisan migrate
 
 #copy the custom apache config file which grants access to the /var/www/html/public directory where the index file is
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 RUN chown -R www-data:www-data /var/www/html
-#CMD ["php", "artisan", "serve"]
 
 #start apache
 RUN apachectl start
