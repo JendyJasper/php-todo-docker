@@ -36,28 +36,23 @@ pipeline {
             }
         }
         
-        stage ('Stop container') { //can use docker-compuse too
+        stage ('Stop and Delete Container') { //can use docker-compuse too
             steps {
-                sh 'sudo docker stop todo-${VERSION}'
+                sh '''#!/bin/bash
+                sudo docker stop todo-${VERSION}
+                sudo docker rm -f todo-${VERSION}
+                '''
             }
         }
 
-        stage ('Delete containers'){
-            steps {
-                sh 'sudo docker rm -f todo-${VERSION}'
-            }
-        }
-
-        stage ('Delete Image Locally') {
+        stage ('Delete Image and Prune System') {
             steps{
-                sh 'sudo docker rmi -f jendyjasper/todo:${VERSION}'
+                sh '''#!/bin/bash
+                sudo docker rmi -f jendyjasper/todo:${VERSION}
+                sudo docker system prune -f
+                '''
             } 
         }
 
-        stage ('Docker System Prune') {
-            steps {
-                sh 'sudo docker system prune -f'
-            }
-        }
     }
 }
