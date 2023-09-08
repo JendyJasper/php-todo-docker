@@ -28,12 +28,13 @@ pipeline {
                 //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
                 //push the image to docker hub and if not, print an error message
                 sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://54.146.33.56:5001/')
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://34.204.0.208:5001/')
                     if [[ $code == "200" ]]; then
                         sudo docker push jendyjasper/todo:${VERSION}
                     else
                         echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub. Deleting created images"
                         sudo docker rmi -f jendyjasper/todo:${VERSION}
+                        sudo docker rmi -f mysql:latest
                         sudo docker system prune -f
                     fi
                 '''
@@ -50,6 +51,7 @@ pipeline {
             steps{
                 sh '''#!/bin/bash
                 sudo docker rmi -f jendyjasper/todo:${VERSION}
+                sudo docker rmi -f mysql:latest
                 sudo docker system prune -f
                 '''
             } 
