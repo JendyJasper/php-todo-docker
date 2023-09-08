@@ -21,6 +21,7 @@ pipeline {
             }        
         }
 
+        
         stage ('Push to Docker Hub') {
             steps {
                 sh 'sudo docker push jendyjasper/todo:${VERSION}'
