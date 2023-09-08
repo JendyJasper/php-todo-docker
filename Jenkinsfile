@@ -25,7 +25,7 @@ pipeline {
         stage('DB Migration') {
             steps {
                 sh '''#!/bin/bash
-                    sudo docker exec -it todo php artisan
+                    sudo docker exec -it todo php artisan migrate
                 '''
                 
             }
