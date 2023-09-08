@@ -17,7 +17,7 @@ pipeline {
 
         stage('Docker Compose UP') {
             steps {
-                sh 'git clone origin test_http_status https://github.com/JendyJasper/php-todo-docker.git'
+                sh 'git clone -b test_http_status https://github.com/JendyJasper/php-todo-docker.git'
                 sh 'cd todo'
                 sh 'sudo docker compose -f todo.yaml up -d'
                 
