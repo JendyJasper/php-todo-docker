@@ -8,9 +8,9 @@ pipeline {
 
     stages {
 
-        stage('Save env') {
+        stage('print env') {
                 steps {
-                    sh 'sudo echo ${VERSION} > .file.env'
+                    sh 'printenv'
                     
                 }
             }
