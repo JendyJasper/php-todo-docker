@@ -2,7 +2,7 @@ version: "3.9"
 services:
   php_frontend:
   #use double $$ to expand the jenkins env variable inside the container
-    image: "jendyjasper/todo:$IMG_VERSION"
+    image: "jendyjasper/todo:$IMG_VERSION" #define the value of this on the terminal if using jenkins
     container_name: todo
     build: 
       context: .

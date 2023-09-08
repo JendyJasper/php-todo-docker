@@ -16,8 +16,7 @@ pipeline {
             }
 
         stage('Docker Compose UP') {
-            steps {
-               // sh 'export IMG_VERSION=${VERSION}'
+            steps { //use this to set the env var that is been used by todo.yml compose file
                 sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
                 
             }
