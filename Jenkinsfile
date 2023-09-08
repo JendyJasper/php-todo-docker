@@ -18,9 +18,7 @@ pipeline {
         stage('DB Migration') {
             steps {
                 //run sudo docker exec -it todo php artisan migrate after successfull run by running it on the shell 
-                sh '''#!/bin/bash
-                    sudo docker exec -it todo php artisan migrate
-                '''
+                sh 'sudo docker exec -it todo php artisan migrate'
                 
             }
         }
@@ -42,9 +40,7 @@ pipeline {
         
         stage ('Docker Compose Down') { //can use docker-compuse too
             steps {
-                sh '''#!/bin/bash
-                sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down
-                '''
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down'
             }
         }
 
