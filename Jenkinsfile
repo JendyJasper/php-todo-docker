@@ -18,7 +18,7 @@ pipeline {
         stage('DB Migration') {
             steps {
                 //run sudo docker exec -it todo php artisan migrate after successfull run by running it on the shell 
-                sh 'sudo docker compose -f todo.yaml exec  todo php artisan migrate'
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml exec  todo php artisan migrate'
                 
             }
         }
