@@ -17,8 +17,8 @@ pipeline {
 
         stage('Docker Compose UP') {
             steps {
-                sh 'export IMG_VERSION=${VERSION}'
-                sh 'sudo docker compose -f todo.yaml up -d'
+               // sh 'export IMG_VERSION=${VERSION}'
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
                 
             }
         }
