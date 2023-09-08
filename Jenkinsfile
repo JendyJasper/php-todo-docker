@@ -49,7 +49,7 @@ pipeline {
             steps{
                 sh '''#!/bin/bash
                 sudo docker rmi -f jendyjasper/todo:${VERSION}
-                sudo docker rmi -f mysql:latest
+                sudo docker rmi -f mysql:5.7
                 sudo docker system prune -f
                 '''
             } 
