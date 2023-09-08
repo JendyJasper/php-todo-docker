@@ -8,13 +8,6 @@ pipeline {
 
     stages {
 
-        stage('print env') {
-                steps {
-                    sh 'printenv'
-                    
-                }
-            }
-
         stage('Docker Compose UP') {
             steps { //use this to set the env var that is been used by todo.yml compose file
                 sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
@@ -24,6 +17,7 @@ pipeline {
 
         stage('DB Migration') {
             steps {
+                //run sudo docker exec -it todo php artisan migrate after successfull run by running it on the shell 
                 sh '''#!/bin/bash
                     sudo docker exec -it todo php artisan migrate
                 '''
@@ -31,7 +25,6 @@ pipeline {
             }
         }
 
-        //run sudo docker exec -it todo php artisan migrate after successfull run by running it on the shell 
         stage ('Push to Docker Hub') {
             steps {
                 //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
@@ -50,7 +43,7 @@ pipeline {
         stage ('Docker Compose Down') { //can use docker-compuse too
             steps {
                 sh '''#!/bin/bash
-                sudo docker compose -f todo.yaml down
+                sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down
                 '''
             }
         }
