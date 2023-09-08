@@ -8,12 +8,12 @@ pipeline {
 
     stages {
 
-        stage('Docker Compose UP') {
-            steps { //use this to set the env var that is been used by todo.yml compose file
-                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
+        // stage('Docker Compose UP') {
+        //     steps { //use this to set the env var that is been used by todo.yml compose file
+        //         sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
                 
-            }
-        }
+        //     }
+        // }
 
         stage('DB Migration') {
             steps {
@@ -23,36 +23,36 @@ pipeline {
             }
         }
 
-        stage ('Push to Docker Hub') {
-            steps {
-                //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
-                //push the image to docker hub and if not, print an error message
-                sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://34.204.0.208:5001/')
-                    if [[ $code == "200" ]]; then
-                        sudo docker push jendyjasper/todo:${VERSION}
-                    else
-                        echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub. Deleting created images"
-                    fi
-                '''
-            }
-        }
+        // stage ('Push to Docker Hub') {
+        //     steps {
+        //         //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
+        //         //push the image to docker hub and if not, print an error message
+        //         sh '''#!/bin/bash
+        //             code=$(curl -s -o /dev/null -w "%{http_code}" 'http://34.204.0.208:5001/')
+        //             if [[ $code == "200" ]]; then
+        //                 sudo docker push jendyjasper/todo:${VERSION}
+        //             else
+        //                 echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub. Deleting created images"
+        //             fi
+        //         '''
+        //     }
+        // }
         
-        stage ('Docker Compose Down') { //can use docker-compuse too
-            steps {
-                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down'
-            }
-        }
+        // stage ('Docker Compose Down') { //can use docker-compuse too
+        //     steps {
+        //         sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down'
+        //     }
+        // }
 
-        stage ('Delete Image and Prune System') {
-            steps{
-                sh '''#!/bin/bash
-                sudo docker rmi -f jendyjasper/todo:${VERSION}
-                sudo docker rmi -f mysql:latest
-                sudo docker system prune -f
-                '''
-            } 
-        }
+        // stage ('Delete Image and Prune System') {
+        //     steps{
+        //         sh '''#!/bin/bash
+        //         sudo docker rmi -f jendyjasper/todo:${VERSION}
+        //         sudo docker rmi -f mysql:latest
+        //         sudo docker system prune -f
+        //         '''
+        //     } 
+        // }
 
     }
 }
