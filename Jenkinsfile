@@ -8,12 +8,12 @@ pipeline {
 
     stages {
 
-        // stage('Docker Compose UP') {
-        //     steps { //use this to set the env var that is been used by todo.yml compose file
-        //         sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
+        stage('Docker Compose UP') {
+            steps { //use this to set the env var that is been used by todo.yml compose file
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
                 
-        //     }
-        // }
+            }
+        }
 
         stage('DB Migration') {
             steps {
