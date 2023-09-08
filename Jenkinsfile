@@ -17,6 +17,7 @@ pipeline {
 
         stage('Docker Compose UP') {
             steps {
+                sh 'printenv'
                 sh 'sudo docker compose -f todo.yaml up -d'
                 
             }
