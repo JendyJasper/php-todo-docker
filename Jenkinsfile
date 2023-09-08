@@ -33,9 +33,6 @@ pipeline {
                         sudo docker push jendyjasper/todo:${VERSION}
                     else
                         echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub. Deleting created images"
-                        sudo docker rmi -f jendyjasper/todo:${VERSION}
-                        sudo docker rmi -f mysql:latest
-                        sudo docker system prune -f
                     fi
                 '''
             }
